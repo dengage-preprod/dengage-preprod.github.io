@@ -1,46 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Dengage</title>
-	<div>
-		<span style="display: flex;">Token Bilgileriniz</span>
-		<div style="margin: 15px;">
-			<div style="display: flex; padding-bottom: 15px;">
-				<span>Token:</span>
-				<span id="token"></span>
-			</div>
-			<div>
-				<span>Device Id:</span>
-				<span id="deviceId"></span>
-			</div>
-		</div>
-		<span style="display: flex;">Bu site Preprod ortamına bağlıdır.</span>
-	</div>
+  <head>
+    <title>Dengage</title>
+    <div>
+      <span style="display: flex;">Token Bilgileriniz</span>
+      <div style="margin: 15px;">
+        <div style="display: flex; padding-bottom: 15px;">
+          <span>Token:</span>
+          <span id="token"></span>
+        </div>
+        <div>
+          <span>Device Id:</span>
+          <span id="deviceId"></span>
+        </div>
+      </div>
+      <span style="display: flex;">Bu site Preprod ortamına bağlıdır.</span>
+    </div>
 	<script>
 		!function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://ppp.dengage.com/p/push/2/15672516-3171-96f8-c9a3-936c064ad36a/dengage_sdk.js",d.appendChild(g)}(window,document);
-	  
+		
 		dengage('initialize');
-	  </script>
-	<script>
-		dengage('getToken', function(token) {
-			if (token == null) {
-				document.getElementById("token").innerHTML = 'token alamadınız';
-			} else {
-				document.getElementById("token").innerHTML = token;
-			}
-		});
-		dengage('getDeviceId', function(device_id) {
-			if (device_id == null) {
-				document.getElementById("deviceId").innerHTML = 'device_id alamadınız';
-			} else {
-				document.getElementById("deviceId").innerHTML = device_id;
-			}
-		});
 	</script>
-	
-
-</head>
-<body>
-	
-</body>
+    <script>
+      dengage("getToken", function(token) {
+        if (token == null) {
+          document.getElementById("token").innerHTML = "token alamadınız";
+        } else {
+          document.getElementById("token").innerHTML = token;
+        }
+      });
+      dengage("getDeviceId", function(device_id) {
+        if (device_id == null) {
+          document.getElementById("deviceId").innerHTML =
+            "device_id alamadınız";
+        } else {
+          document.getElementById("deviceId").innerHTML = device_id;
+        }
+      });
+    </script>
+  </head>
+  <body></body>
 </html>
