@@ -49,14 +49,14 @@ function myFunction() {
         accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
         channel: "app_popup",
         deviceId: "",
-        contactKey: 'ramazan',
+        contactKey: 'demo_zvooxbfi',
         extraParams: {
             transaction_type : transactionType,
             account_type: accountType,
             amount: amount
         }
     };
-    postData('http://ppcma.dengage.com:5060/api/c/m/search', obje )
+    postData('https://ppcma.dengage.com/api/c/m/search', obje )
         .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
             
