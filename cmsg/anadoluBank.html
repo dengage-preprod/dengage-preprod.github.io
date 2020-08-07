@@ -4,7 +4,8 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div style="padding-left: 60px;">
+    <div style="display: flex;">
+        <div style="width:24%"></div>
         <img src="anadolubank-logo.png" alt="">
     </div>
     <div>
@@ -14,30 +15,36 @@
                 </h3>
         </div>
             
-        <div style="width:50%;padding-left: 20px;margin: 0 auto;">
+        <div style="width:50%;margin: 0 auto;">
             <form action="/action_page.php">
                 <div class="form-group">
-                    <label for="accountType">Account Type:</label> 
-                    <input class="form-control" id="accountType">
+                    <label for="accountType">Account Type:</label>
+                    <select class="form-control" id="accountType" onchange="selectAccountType()">
+                        <option>Standart</option>
+                        <option>Renkli</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="transactionType">Transaction Type:</label>
-                    <input class="form-control" id="transactionType">
+                    <select class="form-control" id="transactionType" onchange="selectTransactionType()">
+                        <option>eft</option>
+                        <option>havale</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount:</label>
-                    <input class="form-control" id="amount">
+                    <input class="form-control" id="amount" onblur="sendAmount()">
                 </div>
-                <div style="text-align:right">
+                <!--<div style="text-align:right">
                     <div onclick="myFunction()" class="btn btn-info" style="cursor:pointer">Send</div>
-                </div>
+                </div>-->
                 
             </form>
         </div>
     
         <div style="padding-top: 10px;width: 50%;margin: 0 auto;">
             <div id="msg" class="alert alert-info" style="display: none;"></div>
-            <div id="notMsg" class="alert alert-danger" style="display: none;"></div>
+            <!--<div id="notMsg" class="alert alert-danger" style="display: none;"></div>-->
         </div>
     </div>
     
@@ -77,8 +84,6 @@ function myFunction() {
                 document.getElementById("notMsg").innerHTML = "No message";
             }
         });
-    
-    console.log(obje)
 }
 async function postData(url = '', data = {}) {
   // Default options are marked with *
@@ -103,5 +108,109 @@ async function postData(url = '', data = {}) {
    
 }
 
+function selectAccountType() {
+    var accountType = document.getElementById("accountType").value;
+    var transactionType = document.getElementById("transactionType").value;
+    var amount = document.getElementById("amount").value;
+    var obje = 
+    {
+        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+        channel: "case1",
+        deviceId: "",
+        contactKey: 'demo_zvooxbfi',
+        extraParams: {
+            transaction_type : transactionType,
+            account_type: accountType,
+            amount: amount
+        }
+    };
+    if (amount) {
+        postData('https://ppcma.dengage.com/api/c/m/search', obje )
+            .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                
+                if (data.length > 0) {
+                    var message = JSON.parse(data[0].message)
+                    //document.getElementById("notMsg").style.display = "none";
+                    document.getElementById("msg").style.display = "block";
+                    document.getElementById("msg").innerHTML = message.message;
+                } else {
+                    document.getElementById("msg").style.display = "none";
+                    //document.getElementById("notMsg").style.display = "block";
+                    //document.getElementById("notMsg").innerHTML = "No message";
+                }
+            });
+    }
+    
+}
+function selectTransactionType() {
+    var accountType = document.getElementById("accountType").value;
+    var transactionType = document.getElementById("transactionType").value;
+    var amount = document.getElementById("amount").value;
+    var obje = 
+    {
+        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+        channel: "case1",
+        deviceId: "",
+        contactKey: 'demo_zvooxbfi',
+        extraParams: {
+            transaction_type : transactionType,
+            account_type: accountType,
+            amount: amount
+        }
+    };
+    if (amount) {
+        postData('https://ppcma.dengage.com/api/c/m/search', obje )
+            .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                
+                if (data.length > 0) {
+                    var message = JSON.parse(data[0].message)
+                    //document.getElementById("notMsg").style.display = "none";
+                    document.getElementById("msg").style.display = "block";
+                    document.getElementById("msg").innerHTML = message.message;
+                } else {
+                    document.getElementById("msg").style.display = "none";
+                    //document.getElementById("notMsg").style.display = "block";
+                    //document.getElementById("notMsg").innerHTML = "No message";
+                }
+            });
+    }
+    
+}
+function sendAmount() {
+    var accountType = document.getElementById("accountType").value;
+    var transactionType = document.getElementById("transactionType").value;
+    var amount = document.getElementById("amount").value;
+    var obje = 
+    {
+        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+        channel: "case1",
+        deviceId: "",
+        contactKey: 'demo_zvooxbfi',
+        extraParams: {
+            transaction_type : transactionType,
+            account_type: accountType,
+            amount: amount
+        }
+    };
+    if (amount) {
+        postData('https://ppcma.dengage.com/api/c/m/search', obje )
+            .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                
+                if (data.length > 0) {
+                    var message = JSON.parse(data[0].message)
+                    //document.getElementById("notMsg").style.display = "none";
+                    document.getElementById("msg").style.display = "block";
+                    document.getElementById("msg").innerHTML = message.message;
+                } else {
+                    document.getElementById("msg").style.display = "none";
+                    //document.getElementById("notMsg").style.display = "block";
+                    //document.getElementById("notMsg").innerHTML = "No message";
+                }
+            });
+    }
+}
 
 </script>
