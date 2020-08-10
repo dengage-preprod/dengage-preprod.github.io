@@ -41,7 +41,7 @@
                     <input class="form-control" id="amount" onblur="sendAmount()">
                 </div>
                 <div style="text-align:right">
-                    <div onclick="myFunction()" class="btn btn-info" style="cursor:pointer" data-toggle="modal" data-target="#myModal">
+                    <div onclick="myFunction()" class="btn btn-info" style="cursor:pointer">
                         Show Message
                     </div>
                 </div>
@@ -49,10 +49,9 @@
             </form>
         </div>
     
-        <!--<div style="padding-top: 10px;width: 50%;margin: 0 auto;">
+        <div style="padding-top: 10px;width: 50%;margin: 0 auto;">
             <div id="msg" class="alert alert-info" style="display: none;"></div>
-            <div id="notMsg" class="alert alert-danger" style="display: none;"></div>
-        </div>-->
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
                 <div class="modal-dialog">
@@ -64,7 +63,7 @@
                             <h4 class="modal-title">Anadolubank</h4>
                         </div>
                         <div class="modal-body">
-                            <p id="msg"></p>
+                            <p id="modalMsg"></p>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -99,16 +98,14 @@ function myFunction() {
     postData('https://ppcma.dengage.com/api/c/m/search', obje )
         .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
-            
             if (data.length > 0) {
+                $("#myModal").modal({show: true});
                 var message = JSON.parse(data[0].message)
-                //document.getElementById("notMsg").style.display = "none";
                 document.getElementById("msg").style.display = "block";
                 document.getElementById("msg").innerHTML = message.message;
+                document.getElementById("modalMsg").innerHTML = message.message;
             } else {
                 document.getElementById("msg").style.display = "none";
-                //document.getElementById("notMsg").style.display = "block";
-                //document.getElementById("notMsg").innerHTML = "No message";
             }
         });
 }
@@ -158,13 +155,11 @@ function selectAccountType() {
                 
                 if (data.length > 0) {
                     var message = JSON.parse(data[0].message)
-                    //document.getElementById("notMsg").style.display = "none";
                     document.getElementById("msg").style.display = "block";
                     document.getElementById("msg").innerHTML = message.message;
+                    document.getElementById("modalMsg").innerHTML = message.message;
                 } else {
                     document.getElementById("msg").style.display = "none";
-                    //document.getElementById("notMsg").style.display = "block";
-                    //document.getElementById("notMsg").innerHTML = "No message";
                 }
             });
     }
@@ -193,13 +188,11 @@ function selectTransactionType() {
                 
                 if (data.length > 0) {
                     var message = JSON.parse(data[0].message)
-                    //document.getElementById("notMsg").style.display = "none";
                     document.getElementById("msg").style.display = "block";
                     document.getElementById("msg").innerHTML = message.message;
+                    document.getElementById("modalMsg").innerHTML = message.message;
                 } else {
                     document.getElementById("msg").style.display = "none";
-                    //document.getElementById("notMsg").style.display = "block";
-                    //document.getElementById("notMsg").innerHTML = "No message";
                 }
             });
     }
@@ -228,13 +221,11 @@ function sendAmount() {
                 
                 if (data.length > 0) {
                     var message = JSON.parse(data[0].message)
-                    //document.getElementById("notMsg").style.display = "none";
                     document.getElementById("msg").style.display = "block";
                     document.getElementById("msg").innerHTML = message.message;
+                    document.getElementById("modalMsg").innerHTML = message.message;
                 } else {
                     document.getElementById("msg").style.display = "none";
-                    //document.getElementById("notMsg").style.display = "block";
-                    //document.getElementById("notMsg").innerHTML = "No message";
                 }
             });
     }
