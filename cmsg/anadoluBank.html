@@ -94,7 +94,6 @@ function myFunction() {
             account_type: accountType,
             amount: amount
         },
-        isFetched: true,
     };
     postData('https://ppcma.dengage.com/api/c/m/search', obje )
         .then(data => {
@@ -105,10 +104,14 @@ function myFunction() {
                 document.getElementById("msg").style.display = "block";
                 document.getElementById("msg").innerHTML = message.message;
                 document.getElementById("modalMsg").innerHTML = message.message;
-                putData('https://ppcma.dengage.com/api/c/m/update', {
-                    accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
-                    uniqueId: data[0].uniqueId,
-                });
+                for (const d of data) {
+                        if (d.isFetched == 'false') {
+                            putData('https://ppcma.dengage.com/api/c/m/update', {
+                                accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+                                uniqueId: d.uniqueId,
+                            });
+                        }
+                    }
             } else {
                 document.getElementById("msg").style.display = "none";
             }
@@ -172,7 +175,6 @@ function onChangeData() {
             account_type: accountType,
             amount: amount
         },
-        isFetched: true,
     };
     if (amount) {
         postData('https://ppcma.dengage.com/api/c/m/search', obje )
@@ -184,10 +186,14 @@ function onChangeData() {
                     document.getElementById("msg").style.display = "block";
                     document.getElementById("msg").innerHTML = message.message;
                     document.getElementById("modalMsg").innerHTML = message.message;
-                    putData('https://ppcma.dengage.com/api/c/m/update', {
-                        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
-                        uniqueId: data[0].uniqueId,
-                    });
+                    for (const d of data) {
+                        if (d.isFetched == 'false') {
+                            putData('https://ppcma.dengage.com/api/c/m/update', {
+                                accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+                                uniqueId: d.uniqueId,
+                            });
+                        }
+                    }
                 } else {
                     document.getElementById("msg").style.display = "none";
                 }
