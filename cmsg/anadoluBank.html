@@ -24,25 +24,25 @@
             <form action="/action_page.php">
                 <div class="form-group">
                     <label for="accountType">Account Type:</label>
-                    <select class="form-control" id="accountType" onchange="selectAccountType()">
+                    <select class="form-control" id="accountType" onchange="onChangeData()">
                         <option>standart</option>
                         <option>renkli</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="transactionType">Transaction Type:</label>
-                    <select class="form-control" id="transactionType" onchange="selectTransactionType()">
+                    <select class="form-control" id="transactionType" onchange="onChangeData()">
                         <option>eft</option>
                         <option>havale</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="amount">Amount:</label>
-                    <input class="form-control" id="amount" onblur="sendAmount()">
+                    <input class="form-control" id="amount" onblur="onChangeData()">
                 </div>
                 <div style="text-align:right">
                     <div onclick="myFunction()" class="btn btn-info" style="cursor:pointer">
-                        Show Message
+                        Next
                     </div>
                 </div>
                 
@@ -93,7 +93,8 @@ function myFunction() {
             transaction_type : transactionType,
             account_type: accountType,
             amount: amount
-        }
+        },
+        isFetched: true,
     };
     postData('https://ppcma.dengage.com/api/c/m/search', obje )
         .then(data => {
@@ -104,6 +105,10 @@ function myFunction() {
                 document.getElementById("msg").style.display = "block";
                 document.getElementById("msg").innerHTML = message.message;
                 document.getElementById("modalMsg").innerHTML = message.message;
+                putData('https://ppcma.dengage.com/api/c/m/update', {
+                    accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+                    uniqueId: data[0].uniqueId,
+                });
             } else {
                 document.getElementById("msg").style.display = "none";
             }
@@ -129,10 +134,30 @@ async function postData(url = '', data = {}) {
   } catch (error) {
     return [];
   }
-   
 }
 
-function selectAccountType() {
+async function putData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  try {
+    return await response.json(); // parses JSON response into native JavaScript objects
+  } catch (error) {
+    return [];
+  }
+}
+
+function onChangeData() {
     var accountType = document.getElementById("accountType").value;
     var transactionType = document.getElementById("transactionType").value;
     var amount = document.getElementById("amount").value;
@@ -146,7 +171,8 @@ function selectAccountType() {
             transaction_type : transactionType,
             account_type: accountType,
             amount: amount
-        }
+        },
+        isFetched: true,
     };
     if (amount) {
         postData('https://ppcma.dengage.com/api/c/m/search', obje )
@@ -158,6 +184,10 @@ function selectAccountType() {
                     document.getElementById("msg").style.display = "block";
                     document.getElementById("msg").innerHTML = message.message;
                     document.getElementById("modalMsg").innerHTML = message.message;
+                    putData('https://ppcma.dengage.com/api/c/m/update', {
+                        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
+                        uniqueId: data[0].uniqueId,
+                    });
                 } else {
                     document.getElementById("msg").style.display = "none";
                 }
@@ -165,70 +195,4 @@ function selectAccountType() {
     }
     
 }
-function selectTransactionType() {
-    var accountType = document.getElementById("accountType").value;
-    var transactionType = document.getElementById("transactionType").value;
-    var amount = document.getElementById("amount").value;
-    var obje = 
-    {
-        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
-        channel: "case1",
-        deviceId: "",
-        contactKey: 'demo_zvooxbfi',
-        extraParams: {
-            transaction_type : transactionType,
-            account_type: accountType,
-            amount: amount
-        }
-    };
-    if (amount) {
-        postData('https://ppcma.dengage.com/api/c/m/search', obje )
-            .then(data => {
-                console.log(data); // JSON data parsed by `data.json()` call
-                
-                if (data.length > 0) {
-                    var message = JSON.parse(data[0].message)
-                    document.getElementById("msg").style.display = "block";
-                    document.getElementById("msg").innerHTML = message.message;
-                    document.getElementById("modalMsg").innerHTML = message.message;
-                } else {
-                    document.getElementById("msg").style.display = "none";
-                }
-            });
-    }
-    
-}
-function sendAmount() {
-    var accountType = document.getElementById("accountType").value;
-    var transactionType = document.getElementById("transactionType").value;
-    var amount = document.getElementById("amount").value;
-    var obje = 
-    {
-        accountGuid: "02df01fc-d2c6-4f71-324d-3c36f9fee4cc",
-        channel: "case1",
-        deviceId: "",
-        contactKey: 'demo_zvooxbfi',
-        extraParams: {
-            transaction_type : transactionType,
-            account_type: accountType,
-            amount: amount
-        }
-    };
-    if (amount) {
-        postData('https://ppcma.dengage.com/api/c/m/search', obje )
-            .then(data => {
-                console.log(data); // JSON data parsed by `data.json()` call
-                
-                if (data.length > 0) {
-                    var message = JSON.parse(data[0].message)
-                    document.getElementById("msg").style.display = "block";
-                    document.getElementById("msg").innerHTML = message.message;
-                    document.getElementById("modalMsg").innerHTML = message.message;
-                } else {
-                    document.getElementById("msg").style.display = "none";
-                }
-            });
-    }
-}
-
 </script>
