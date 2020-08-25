@@ -1,55 +1,64 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-  <div style="display: flex;">
-    <div style="width:24%"></div>
-    <img src="trustbank.png" alt="">
-  </div>
-  <div>
-    <div style="padding:10px;text-align: center;">
-      <h3>
-        Dengage Case 4 Custom Message
-      </h3>
+    <div style="display: flex;">
+        <div style="width:24%"></div>
+        <img src="trustbank.png" alt="">
     </div>
-        
-    <div style="width:50%;margin: 0 auto;">
-      <div id="msg" class="alert alert-info" style="display: none;"></div>
-      <div id="notMsg" class="alert alert-danger" style="display: none;"></div>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-      
-      <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Trust Bank</h4>
-          </div>
-          <div class="modal-body">
-            <p id="msg"></p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+    <div>
+        <div style="padding:10px;text-align: center;">
+                <h3>
+                  Dengage Case 7 Custom Message
+                </h3>
         </div>
-      
-      </div>
+            
+        <div style="width:50%;margin: 0 auto;">
+            <form action="/action_page.php">
+                <div class="form-group">
+                    <label for="formSelection">Applied to Loan</label>
+                    <select class="form-control" id="formSelection" onchange="onChangeData()">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                
+            </form>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+            <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" >&times;</button>
+                        <h4 class="modal-title">Trust Bank</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!--<p id="msg"></p>-->
+                        Did you know that you can apply for loan online, right now? You may complete your application in seconds.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">APPLY ONLINE</button>
+                    </div>
+                </div>
+            
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 </html>
 
 <script>
-window.onload = myFunction;
+/*window.onload = myFunction;
 function myFunction() {
     var obje = 
     {
@@ -81,6 +90,15 @@ function myFunction() {
                 //document.getElementById("notMsg").innerHTML = "No message";
             }
         });
+}*/
+
+window.onload = myFunction;
+var isTenSecond = false
+function myFunction() {
+    return setTimeout(function(){ 
+        isTenSecond = true;
+        onChangeData();
+     }, 10000);
 }
 
 async function postData(url = '', data = {}) {
@@ -126,4 +144,13 @@ async function putData(url = '', data = {}) {
   }
 }
 
+function onChangeData() {
+    var formSelection = document.getElementById("formSelection").value;
+    if (formSelection == 'No' && isTenSecond) {
+        console.log(formSelection)
+        console.log(isTenSecond)
+        $('#myModal').modal('show');
+    }
+    
+}
 </script>
