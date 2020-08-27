@@ -62,7 +62,7 @@ function myFunction() {
     postData('https://ppcma.dengage.com/api/c/m/search', obje )
         .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
-            
+            $('#myModal').modal('show');
             if (data.length > 0) {
                 var message = JSON.parse(data[0].message)
                 //document.getElementById("notMsg").style.display = "none";
