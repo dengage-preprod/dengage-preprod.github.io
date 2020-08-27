@@ -59,7 +59,7 @@ function myFunction() {
         deviceId: "",
         contactKey: 'demo_zqwiyghv',
     };
-    postData('https://ppcma.dengage.com/api/c/m/search', obje )
+    postData('https://cma.dengage.com/api/c/m/search', obje )
         .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
             $('#myModal').modal('show');
@@ -70,7 +70,7 @@ function myFunction() {
                 document.getElementById("msg").innerHTML = message.message;
                 for (const d of data) {
                     if (d.isFetched == 'false') {
-                        putData('https://ppcma.dengage.com/api/c/m/update', {
+                        putData('https://cma.dengage.com/api/c/m/update', {
                             accountGuid: "f262a43e-d2af-57f8-d67f-9d81df9392ca",
                             uniqueId: d.uniqueId,
                         });
