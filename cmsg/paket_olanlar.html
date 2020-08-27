@@ -20,10 +20,10 @@
       </h3>
     </div>
         
-    <div style="width:50%;margin: 0 auto;">
+    <!--<div style="width:50%;margin: 0 auto;">
       <div id="msg" class="alert alert-info" style="display: none;"></div>
       <div id="notMsg" class="alert alert-danger" style="display: none;"></div>
-    </div>
+    </div>-->
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
@@ -67,6 +67,7 @@ function myFunction() {
                 //document.getElementById("notMsg").style.display = "none";
                 document.getElementById("msg").style.display = "block";
                 document.getElementById("msg").innerHTML = message.message;
+                $('#myModal').modal('show');
                 for (const d of data) {
                     if (d.isFetched == 'false') {
                         putData('https://ppcma.dengage.com/api/c/m/update', {
