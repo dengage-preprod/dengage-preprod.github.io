@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+	<!--[if gte mso 9]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width">
+	<!--[if !mso]><!-->
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--<![endif]-->
+	<title></title>
+	<!--[if !mso]><!-->
+	<!--<![endif]-->
+	<style type="text/css">
+		
+    </style>
+
+    <script>
+        !function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://p.dengage.com/p/push/91/99731b96-fd76-d24b-469a-d895418c1deb/dengage_sdk.js",d.appendChild(g)}(window,document);
+        
+        dengage('initialize');
+
+        var urlParams = new URLSearchParams(window.location.search);
+        var cevap = urlParams.get('cevap');
+        var c_key = urlParams.get('contact_key');
+
+        var eventData = {
+            sonuc: cevap,
+        };
+        
+        dengage('sendCustomEvent', 'anket_sonuc', c_key, eventData);
+    </script>
+
+</head>
+
+
+<body>
+    Anketi cevapladığınız için teşekkürler :)
+<body>
+
+</html>
