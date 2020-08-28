@@ -126,13 +126,11 @@ async function putData(url = '', data = {}) {
 
 
 function evet() {
-    console.log('evet')
     !function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://p.dengage.com/p/push/91/99731b96-fd76-d24b-469a-d895418c1deb/dengage_sdk.js",d.appendChild(g)}(window,document);
     
     dengage('initialize');
 
     var urlParams = new URLSearchParams(window.location.search);
-    var cevap = urlParams.get('cevap');
     var c_key = 'neslihan@dengage.com';
 
     var eventData = {
@@ -142,13 +140,11 @@ function evet() {
     dengage('sendCustomEvent', 'anket_sonuc', c_key, eventData);
 }
 function hayır() {
-    console.log('hayır')
     !function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://p.dengage.com/p/push/91/99731b96-fd76-d24b-469a-d895418c1deb/dengage_sdk.js",d.appendChild(g)}(window,document);
     
     dengage('initialize');
 
     var urlParams = new URLSearchParams(window.location.search);
-    var cevap = urlParams.get('cevap');
     var c_key = 'neslihan@dengage.com';
 
     var eventData = {
