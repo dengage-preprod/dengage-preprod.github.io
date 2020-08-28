@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div style="display: flex;">
+    <div style="width:24%"></div>
+    <img src="https://pbs.twimg.com/profile_images/707489834995154944/O6ojpSwK.jpg" style="width:100px" alt="">
+  </div>
+  <div>
+    <div style="padding:10px;text-align: center;">
+      <h3>
+        Dengage Case 5 Custom Message
+      </h3>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Amerikadaniste</h4>
+          </div>
+          <div class="modal-body">
+                    <h3>Amerikadaniste Deneyiminizden Memnun Kaldınız Mı?</h3>
+
+                Bizimle bu yolculuğu gerçekleştirdiğin için teşekkürler. Sana tek soruluk bir anket gönderiyoruz. Yanıtlarsan çok memnun oluruz.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="evet()">Evet</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="hayır()">Hayır</button>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+window.onload = myFunction;
+function myFunction() {
+    var obje = 
+    {
+        accountGuid: "f262a43e-d2af-57f8-d67f-9d81df9392ca",
+        channel: "case4_olmayanlar",
+        deviceId: "",
+        contactKey: 'demo_zqwiyghv',
+    };
+    postData('https://cma.dengage.com/api/c/m/search', obje )
+        .then(data => {
+            console.log(data); // JSON data parsed by `data.json()` call
+            $('#myModal').modal('show');
+            if (data.length > 0) {
+                var message = JSON.parse(data[0].message)
+                //document.getElementById("notMsg").style.display = "none";
+                document.getElementById("msg").style.display = "block";
+                document.getElementById("msg").innerHTML = message.message;
+                for (const d of data) {
+                    if (d.isFetched == 'false') {
+                        putData('https://cma.dengage.com/api/c/m/update', {
+                            accountGuid: "f262a43e-d2af-57f8-d67f-9d81df9392ca",
+                            uniqueId: d.uniqueId,
+                        });
+                    }
+                }
+            } else {
+                document.getElementById("msg").style.display = "none";
+                //document.getElementById("notMsg").style.display = "block";
+                //document.getElementById("notMsg").innerHTML = "No message";
+            }
+        });
+}
+
+async function postData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  try {
+    return await response.json(); // parses JSON response into native JavaScript objects
+  } catch (error) {
+    return [];
+  }
+}
+
+async function putData(url = '', data = {}) {
+  // Default options are marked with *
+  const response = await fetch(url, {
+    method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    redirect: 'follow', // manual, *follow, error
+    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  try {
+    return await response.json(); // parses JSON response into native JavaScript objects
+  } catch (error) {
+    return [];
+  }
+}
+
+
+function evet() {
+    console.log('evet')
+    !function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://p.dengage.com/p/push/91/99731b96-fd76-d24b-469a-d895418c1deb/dengage_sdk.js",d.appendChild(g)}(window,document);
+    
+    dengage('initialize');
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var cevap = urlParams.get('cevap');
+    var c_key = 'neslihan@dengage.com';
+
+    var eventData = {
+        sonuc: 'evet',
+    };
+    
+    dengage('sendCustomEvent', 'anket_sonuc', c_key, eventData);
+}
+function hayır() {
+    console.log('hayır')
+    !function(e,a,n,d,g){e.dengage=e.dengage||function(){(e.dengage.q=e.dengage.q||[]).push(arguments)},d=a.getElementsByTagName("head")[0],(g=a.createElement("script")).async=1,g.src="https://p.dengage.com/p/push/91/99731b96-fd76-d24b-469a-d895418c1deb/dengage_sdk.js",d.appendChild(g)}(window,document);
+    
+    dengage('initialize');
+
+    var urlParams = new URLSearchParams(window.location.search);
+    var cevap = urlParams.get('cevap');
+    var c_key = 'neslihan@dengage.com';
+
+    var eventData = {
+        sonuc: 'hayir',
+    };
+    
+    dengage('sendCustomEvent', 'anket_sonuc', c_key, eventData);
+}
+</script>
